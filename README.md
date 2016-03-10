@@ -1,14 +1,12 @@
-Blog
+Blog Space
 ----
 
-作为博客存档，请点击 [issues] (https://github.com/Terry-Shi/blog/issues)查看发布文章。
-
-
-
-wiki
+作为博客空间，
+1.查看日常短文请点击 [issues] (https://github.com/Terry-Shi/blog/issues)
+2.以下为长文
 
 ### Java
- - [Java 8 ParallelStream](https://github.com/Terry-Shi/blog/wiki/Java8-ParallelStream)
+ - [Java 8 ParallelStream](Java8-ParallelStream)
 
 ### Machine Learning
  - [贝叶斯原理的解释和应用](https://github.com/Terry-Shi/blog/wiki/NaiveBayesian)
