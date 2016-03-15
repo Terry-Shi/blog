@@ -3,10 +3,14 @@
 
 ### 什么是特征 feature
 
-### 六、浅层学习（Shallow Learning）和深度学习（Deep Learning）
+### 浅层学习（Shallow Learning）和深度学习（Deep Learning）
 
 
 ### 参考
 - http://blog.csdn.net/zouxy09/article/details/8775360
 - 深度学习概述：从感知机到深度网络 http://www.cnblogs.com/xiaowanyer/p/3701944.html
 - 吴立德 《深度学习课程》 http://list.youku.com/albumlist/show?id=21508721&ascending=1&page=1
+- Neural Networks Demystified http://lumiverse.io/series/neural-networks-demystified
+- http://markus.com/deep-learning-101/
+- 神经网络与深度学习 https://tigerneil.gitbooks.io/neural-networks-and-deep-learning-zh
+- 神经网络和深度学习简史（第一部分）：从感知机到BP算法 http://it.sohu.com/20160123/n435630017.shtml
