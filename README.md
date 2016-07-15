@@ -13,7 +13,11 @@ My Blog Space
 
 #### Go
   - [Go 并发编程](go/go_concurrent_programming.md)
-
+  - TODO: 错误处理与测试
+  - TODO: 结构（struct）与方法（method）
+  - TODO: 接口（interface）与反射（reflection）
+  
+  
 #### Machine Learning
   - [贝叶斯原理的解释和应用](machinelearning/NaiveBayesian.md)
 

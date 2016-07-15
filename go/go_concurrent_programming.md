@@ -24,7 +24,7 @@
 	chan Sushi        // 可用来发送和接收Sushi类型的值  
 	chan<- float64    // 仅可用来接受float64类型的值  
 	<-chan int        // 仅可用来发送int类型的值   （不能接受，只能发送有什么意义?）
-	// TODO： 不同管道类型之间赋值兼容性 （错误的类型赋值会在运行时抛出异常）
+	// 不同管道类型之间赋值兼容性 （错误的类型赋值会在运行时抛出异常）
 	var sendChan <-chan int = make(<-chan int) // receive-only type
 	var receiveChan chan<- int = make(chan<- int) // send-only type
 	var twoWayChan chan int = make(chan int) // receive and send type
@@ -39,8 +39,9 @@
 	work := <-wc    // 从管道接收一个指向Work类型值的指针
 	```
   - 阻塞式读写: 如果channel满了写操作就会阻塞，如果channel空了读操作就会阻塞。
-  - 关闭管道（Close）后不能再往某个管道发送值。在调用close之后，如果channel空了接收操作会返回一个零值，不会阻塞。  
-```GO
+  - 关闭管道（Close）后不能再往某个管道发送值。在调用close之后，如果channel空了接收操作会返回一个零值，不会阻塞。
+    
+	```GO
 	ch := make(chan string) // 引用类型要用make初始化
 	go func() {
 		ch <- "Hello!"
@@ -51,9 +52,9 @@
 	fmt.Println(<-ch)    // 再次打印输出空字符串"",不会阻塞
 	v, ok := <-ch        // 变量v的值为空字符串""，变量ok的值为false
 	fmt.Println(v, ok)
-```
+	```
 
-```GO
+	```GO
 	// 一个带有range子句的for语句会依次读取发往管道的值，直到该管道关闭：
 	type Sushi string
 	
@@ -79,7 +80,7 @@
 	// 输出为
 	Consumed 海老握り  No. 1
 	Consumed 鮪とろ握り  No. 2
-```
+	```
   - buffered channel 缓冲信道
     - wc := make(chan *Work, 10)    // 带缓冲的Work类型指针管道
 - 同步
@@ -147,9 +148,13 @@
 
 #### 检测数据竞争
 #### Select语句
-  - select是阻塞-是什么含义?
-  - 使用 select 切换协程
-  ```GO
+- select 做的就是：选择处理列出的多个通信情况中的一个。
+  - 如果都阻塞了，会等待直到其中一个可以处理
+  - 如果多个可以处理，随机选择一个
+  - 如果没有通道操作可以处理并且写了 default 语句，它就会执行： default 永远是可运行的（这就是准备好了，可以执行）。
+- 使用 select轮询的例子
+
+	```GO
 	select {
 	case u:= <- ch1:
 	        ...
@@ -159,15 +164,84 @@
 	default: // no value ready to be received
 	        ...
 	}
+	```
+- 两种实际的用法：一种是阻塞但有timeout，一种是无阻塞。
+  - 来看看如果给select设置上timeout的
+  ```GO
+	func main() {
+		c1 := make(chan string)
+		c2 := make(chan string)
+		timeout_cnt := 0
+		for {
+			select {
+			case msg1 := <-c1:
+				fmt.Println("msg1 received", msg1)
+			case msg2 := <-c2:
+				fmt.Println("msg2 received", msg2)
+			case <-time.After(time.Second * 30): // 会停滞30秒
+				fmt.Println("Time Out")
+				timeout_cnt++
+			}
+			if timeout_cnt > 3 {
+				break
+			}
+		}
+	}
   ```
-  
+  - 在select中加入default实现无阻塞
+  ```GO
+	for {
+		select {
+		case msg1 := <-c1:
+			fmt.Println("received", msg1)
+		case msg2 := <-c2:
+			fmt.Println("received", msg2)
+		case i = i+1://<-随意放一个不阻塞的操作在这里，意图避免阻塞。结果运行时出错： select assignment must have receive on right hand side
+		default: // 依靠 default 实现无阻塞
+			fmt.Println("nothing received!")
+			time.Sleep(time.Second)
+		}
+	}
+  ```
+
 #### 并行计算
 ```GO
-    numcpu := runtime.NumCPU()
-    runtime.GOMAXPROCS(numcpu) // 尝试使用所有可用的CPU
+numcpu := runtime.NumCPU()
+runtime.GOMAXPROCS(numcpu) // 尝试使用所有可用的CPU
 ```
+
+#### 定时器 Timer
+- 等待一段时间，类似于sleep
+	```GO
+	func main() {
+	    timer := time.NewTimer(2*time.Second)
+	 
+	    <- timer.C
+	    fmt.Println("timer expired!")
+	}
+	```
+- 每隔一段时间出发一次
+	```Go
+	func main() {
+	    ticker := time.NewTicker(time.Second)
+	 
+	    go func () {
+	        for t := range ticker.C {
+	            fmt.Println(t)
+	        }
+	    }()
+	 
+	    //设置一个timer，10钞后停掉ticker
+	    timer := time.NewTimer(10*time.Second)
+	    <- timer.C
+	 
+	    ticker.Stop()
+	    fmt.Println("timer expired!")
+	}
+	```
 
 #### 参考资料
 - [并发,并行和协程](http://blog.xiayf.cn/2015/05/20/fundamentals-of-concurrent-programming/)
 - [Go 语言简介（下）](http://coolshell.cn/articles/8489.html)
 - [the-way-to-go](https://github.com/Unknwon/the-way-to-go_ZH_CN/blob/master/eBook/14.4.md)
+- [The Go Programming Language](https://docs.ruanjiadeng.com/gopl-zh/ch8/ch8.html)
