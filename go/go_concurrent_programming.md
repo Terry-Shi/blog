@@ -14,10 +14,10 @@
 	    }("going") // 小括号表示执行这个函数，"going"表示输入参数
 	}
 	```
-  - main函数的协程结束，其他协程也立刻结束
+  - main函数的协程结束，其他协程也立刻结束，整个程序退出。
 
-#### channel 管道或信道 
-  - 用于两个goroutine之间通过传递一个指定类型的值来同步运行和通讯。
+#### channel 管道或信道／用于go协程间通信 － 类似于Java中阻塞操作Queue
+  - 而Go有一个特殊的类型，通道（channel），可以通过它们发送数据在协程之间通信，可以避开所有内存共享导致的坑；通道的通信方式保证了同步性。数据通过通道：同一时间只有一个协程可以访问数据：所以不会出现数据竞争。
   - 操作符<-用于指定管道的方向，发送或接收。如果未指定方向，则为双向管道。  
 	```GO
 	// 以下是三种不同类型的定义，
@@ -220,7 +220,7 @@ runtime.GOMAXPROCS(numcpu) // 尝试使用所有可用的CPU
 	    fmt.Println("timer expired!")
 	}
 	```
-- 每隔一段时间出发一次
+- 每隔一段时间触发一次
 	```Go
 	func main() {
 	    ticker := time.NewTicker(time.Second)
@@ -239,6 +239,9 @@ runtime.GOMAXPROCS(numcpu) // 尝试使用所有可用的CPU
 	    fmt.Println("timer expired!")
 	}
 	```
+#### 疑问 misc
+sleep() 非阻塞，放弃cpu时间
+
 
 #### 参考资料
 - [并发,并行和协程](http://blog.xiayf.cn/2015/05/20/fundamentals-of-concurrent-programming/)
