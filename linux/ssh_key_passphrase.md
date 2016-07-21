@@ -31,6 +31,6 @@ Alternatively you can use the PUTTYgen program provided by putty on Windows.
 load the key file and go to "Conversions > Export OpenSSH Key", then just saved it as <keyname>.pem
 
 #### Ref:
-- [ppk key sample](linux/HPIT.ppk)
-- [pem key sample](linux/HPIT.pem)
+- [ppk key sample](HPIT.ppk)
+- [pem key sample](HPIT.pem)
 - http://stackoverflow.com/questions/9631246/ssh-key-passphrase-works-in-windows-but-not-in-linux
