@@ -83,7 +83,39 @@
 	```
   - buffered channel 缓冲信道
     - wc := make(chan *Work, 10)    // 带缓冲的Work类型指针管道
-- 同步
+  - 同步
+```GO
+// deadlock例子
+func f1(in chan int) {
+    fmt.Println(<-in)
+}
+
+func main() {
+    out := make(chan int) // 默认容量为0
+    out <- 2 // 此处就会阻塞
+    go f1(out)
+}
+```
+
+```GO
+// 解决方案1
+func main() {
+	out := make(chan int, 1) // 容量变为1
+	out <- 2
+	go f1(out)
+}
+// 解决方案2
+func main() {
+	out := make(chan int)
+	go f1(out)  // 先启动一个读取数据的协程
+	out <- 2
+}
+```
+
+规律为：  
+假设有 ch :=make(chan type, value)  
+value == 0 -> synchronous, unbuffered (阻塞）  
+value > 0 -> asynchronous, buffered（非阻塞）取决于value元素  
 
 #### 死锁:
   - 死锁是线程之间相互等待，其中任何一个都无法向前运行的情形。
