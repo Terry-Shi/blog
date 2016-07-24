@@ -1,22 +1,22 @@
 ### Go 并发编程
 #### goroutine 协程 - 比线程更加轻量级
-  - go 开始一个新的协程  
+  - 用 go 开始一个新的协程  
 	```GO
 	func f(msg string) {
 	    fmt.Println(msg)
 	}
 	
 	func main(){
-	    go f("goroutine") // 新的协程执行函数f
+	    go f("goroutine") //  函数f
 	
-	    go func(msg string) { // 新的协程执行匿名函数
+	    go func(msg string) { // 匿名函数
 	        fmt.Println(msg)
-	    }("going") // 小括号表示执行这个函数，"going"表示输入参数
+	    }("going") // 小括号表示执行这个函数，"going"是输入参数
 	}
 	```
-  - main函数的协程结束，其他协程也立刻结束，整个程序退出。
+  - main函数的协程结束，其他协程也立刻结束，整个程序退出。(和Java不同)
 
-#### channel 管道或信道／用于go协程间通信 － 类似于Java中阻塞操作Queue
+#### channel 管道或通道,用于go协程间通信
   - 而Go有一个特殊的类型，通道（channel），可以通过它们发送数据在协程之间通信，可以避开所有内存共享导致的坑；通道的通信方式保证了同步性。数据通过通道：同一时间只有一个协程可以访问数据：所以不会出现数据竞争。
   - 操作符<-用于指定管道的方向，发送或接收。如果未指定方向，则为双向管道。  
 	```GO
