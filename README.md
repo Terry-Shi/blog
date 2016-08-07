@@ -1,7 +1,4 @@
-My Blog Space
--------------
-
-博客空间，
+### 博客空间  
 1. 查看日常短文请点击 [issues] (https://github.com/Terry-Shi/blog/issues)
 2. 以下为长文
 
@@ -13,7 +10,7 @@ My Blog Space
 
 #### Go
   - [Go 并发编程](go/go_concurrent_programming.md)
-  - TODO: 错误处理与测试
+  - [错误处理与测试](go/error_and_exception_handling.md)
   - TODO: 结构（struct）与方法（method）
   - TODO: 接口（interface）与反射（reflection）
   
@@ -43,4 +40,12 @@ My Blog Space
   
 #### 負けるもんか
  ![image](https://github.com/Terry-Shi/blog/raw/master/photo/makerumonnka_2.jpg)
- 
+努力了就会有回报，梦想久了就会实现。这只是幻想啊。  
+很多时候，努力了没有回报。很多时候，正义不能获胜。很多时候梦想无法实现。  
+这样的事情，在现实世界里比比皆是。  
+但是，这又如何？ 这就是起点啊。技术研发 99% 都会失败。  
+如果做新的事情，难免会搞砸。恼怒。所以，睡觉的时间，吃饭的时间都要珍惜。无论多少次都要坚持做。  
+来吧，超越今天的自己，超越今天的本田。  
+永不言败！  
+
+
