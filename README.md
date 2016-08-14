@@ -13,7 +13,7 @@
   - [错误处理与测试](go/error_and_exception_handling.md)
   - TODO: 结构（struct）与方法（method）
   - TODO: 接口（interface）与反射（reflection）
-  
+  - 怎么学习go语言 https://www.zhihu.com/question/23486344
 #### Linux
   - [ssh key passphrase works in windows but not in linux](linux/ssh_key_passphrase.md)
   
