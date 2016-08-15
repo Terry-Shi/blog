@@ -9,6 +9,9 @@
   - [Java 8 ParallelStream](java/Java8-ParallelStream.md)
 
 #### Go
+  - 个人感觉 go语言的
+       - 优点有：多返回值，并发编程的支持，直接编译成目标平台的可执行文件（依赖极少）
+       - 缺点有:接口的实现方式太随意，Struct的函数定义位置没有与数据强制放在一起，异常处理，package的管理方式
   - [Go 并发编程](go/go_concurrent_programming.md)
   - [错误处理与测试](go/error_and_exception_handling.md)
   - TODO: 结构（struct）与方法（method）

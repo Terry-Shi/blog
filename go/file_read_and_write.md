@@ -58,11 +58,11 @@ func main() {
 
 #### 写文件
 ```Go
-//写入一个slice,返回写的个数,错误信息,通过File的内存地址调用
+//写入一个slice,返回写的个数,错误信息,通过File调用
 func (file *File)Write(b []byte)(n int,err Error)
-//从slice的某个位置开始写入,返回写的个数,错误信息,通过File的内存地址调用
+//从slice的某个位置开始写入,返回写的个数,错误信息,通过File调用
 func (file *File)WriteAt(b []byte,off int64)(n int,err Error)
-//写入一个字符串,返回写的个数,错误信息,通过File的内存地址调用
+//写入一个字符串,返回写的个数,错误信息,通过File调用
 func (file *File) WriteString(s string)(ret int,err Error)
 
 // 一个完整例子
@@ -170,11 +170,36 @@ func main() {
 递归遍历所有子目录＋文件
 
 
-http://blog.leanote.com/post/duanhq/golang-context
+
 #### XML文件的处理
+ref: https://github.com/astaxie/build-web-application-with-golang/blob/master/zh/07.1.md
 
 #### JSON文件的处理
-
+ref: https://github.com/astaxie/build-web-application-with-golang/blob/master/zh/07.2.md
+```Go
+package main
+import (
+    "encoding/json"
+    "fmt"
+)
+type Lang struct {
+    LangName    string
+    LangVersion string
+    // 字段名首字母大写
+    // 可以用struct tag用于指定转换规则
+}
+type Langslice struct {
+    Langs []Lang
+}
+func main() {
+    var l Langslice
+    str := `{"langs":[{"langName":"Golang", "langVersion":"2.0"},{"langName":"python", "langVersion":"3.5"}]}`
+    json.Unmarshal([]byte(str), &l)
+    //func Unmarshal(data []byte, v interface{}) error
+    //首个参数必须是字符窜
+    fmt.Println(l)
+}
+```
 
 #### 参考资料
 - Golang-文件操作 http://studygolang.com/articles/6563
