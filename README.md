@@ -14,6 +14,7 @@
        - 缺点有:接口的实现方式太随意，Struct的函数定义位置没有与数据强制放在一起，异常处理，package的管理方式
   - [Go 并发编程](go/go_concurrent_programming.md)
   - [错误处理与测试](go/error_and_exception_handling.md)
+  - [文件读写](go/file_read_and_write.md)
   - TODO: 结构（struct）与方法（method）
   - TODO: 接口（interface）与反射（reflection）
   - 怎么学习go语言 https://www.zhihu.com/question/23486344

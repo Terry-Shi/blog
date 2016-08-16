@@ -81,5 +81,15 @@ func ...
 	// something else 
 }
 ```
+- defer是在函数return后执行。但是如果函数先执行了panic，则后面的defer会被忽略。 TODO：
+```Go
+	f, err := os.Open("c")
+	if err != nil {
+		// do somthing with f
+		panic("panic when open file")
+	}
+	defer f.Close() //  如果err!=nil, 这里的defer不会被执行。
+```
+
 
 
