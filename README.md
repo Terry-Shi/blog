@@ -3,48 +3,53 @@
 2. 以下为长文
 
 #### Docker
-  - [Docker Swarm](docker/Docker_Swarm.md)
+
+- [Docker Swarm](docker/Docker_Swarm.md)
 
 #### Java
-  - [Java 8 ParallelStream](java/Java8-ParallelStream.md)
+- [Java 8 ParallelStream](java/Java8-ParallelStream.md)
 
 #### Go
-  - 个人感觉 go语言的
-       - 优点有：多返回值，并发编程的支持，直接编译成目标平台的可执行文件（依赖极少）
-       - 缺点有:接口的实现方式太随意，Struct的函数定义位置没有与数据强制放在一起，异常处理，package的管理方式
-  - [Go 并发编程](go/go_concurrent_programming.md)
-  - [错误处理与测试](go/error_and_exception_handling.md)
-  - [文件读写](go/file_read_and_write.md)
-  - TODO: 结构（struct）与方法（method）
-  - TODO: 接口（interface）与反射（reflection）
-  - 怎么学习go语言 https://www.zhihu.com/question/23486344
+- 个人感觉 go语言
+    - 优点有: 函数可以有多个返回值，并发编程的直接支持，编译成目标平台的可执行文件（依赖极少），同样的功能代码量比Java精简
+    - 缺点有: 接口的实现方式太随意，Struct的函数定义位置没有与数据强制放在一起，异常处理，package的管理方式
+- [Go 并发编程](go/go_concurrent_programming.md)
+    - [错误处理与测试](go/error_and_exception_handling.md)
+    - [文件读写](go/file_read_and_write.md)
+    - [函数](go/function.md)
+    - [数组与切片的区别](go/arra_slice.md)
+    - [并发](go/go_concurrent_programming.md)
+    - TODO: 结构（struct）与方法（method）
+    - TODO: 接口（interface）与反射（reflection）
+    - 怎么学习go语言 https://www.zhihu.com/question/23486344
+
 #### Linux
-  - [ssh key passphrase works in windows but not in linux](linux/ssh_key_passphrase.md)
-  
+- [ssh key passphrase works in windows but not in linux](linux/ssh_key_passphrase.md)
+
 #### Machine Learning
-  - [贝叶斯原理的解释和应用](machinelearning/NaiveBayesian.md)
+- [贝叶斯原理的解释和应用](machinelearning/NaiveBayesian.md)
 
 #### Database
-  - [H2 嵌入式数据库最佳的选择](database/H2.md)
-  - [图数据库Neo4j](database/Neo4j.md)
+- [H2 嵌入式数据库最佳的选择](database/H2.md)
+- [图数据库Neo4j](database/Neo4j.md)
 
 #### Music
-  - [音乐](music/Music.md)
+- [音乐](music/Music.md)
 
 #### BigData
-  - [Spark](bigdata/Spark.md)
+- [Spark](bigdata/Spark.md)
 
 #### Spring framework
-  - [Spring MVC Data Binding](spring/Spring-MVC-handle-static-file.md)
-  - [Spring how to handle Static file](spring/Spring-MVC-data-binding.md)
-  - [Spring boot](spring/Spring-Boot.md)
+- [Spring MVC Data Binding](spring/Spring-MVC-handle-static-file.md)
+- [Spring how to handle Static file](spring/Spring-MVC-data-binding.md)
+- [Spring boot](spring/Spring-Boot.md)
 
 #### Misc
-  - [Design RESTful interface](java/Design-RESTful-interface.md)
-  
+- [Design RESTful interface](java/Design-RESTful-interface.md)
+
 #### 永不言败
  ![image](https://github.com/Terry-Shi/blog/raw/master/photo/makerumonnka_2.jpg)  
- 
+
 努力了就会有回报。梦想久了就会实现。这只是幻想啊。  
 很多时候，努力了没有回报。很多时候，正义不能获胜。很多时候，梦想无法实现。  
 这样的事情，在现实世界里比比皆是。  
