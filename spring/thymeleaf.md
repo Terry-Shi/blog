@@ -1,5 +1,3 @@
-
-
 ### Thymeleaf 介绍
 
 ### Thymeleaf 是什么
@@ -8,9 +6,7 @@ Thymeleaf是一个开源的Java模板引擎库。
 
 Thymeleaf与其他模板引擎的最大优势，其模板文件本身也是一个格式良好的XML/HTML文件，并且可以直接被浏览器打开。改变了在传统模板引擎下前端设计人员和后端开发人员的协作方式，能有效的提高工作效率。
 
-### th标签
-
-#### 简单表达式 Simple expressions
+### 标准表达式语法 Standard Expression Syntax
 
 - 变量表达式  ${……} Variable Expressions:
 
@@ -18,9 +14,9 @@ Thymeleaf与其他模板引擎的最大优势，其模板文件本身也是一�
 <input type="text" name="userName" value="James Carrot" th:value="${user.name}" />
 ```
 
-​    上述代码为引用user对象的name属性值。
+​    上述代码为引用user对象的name属性值。实际上会执行((User)ctx.getVariables().get("user").getName();
 
-- 选择变量表达式 *{……} Selection Variable Expressions: 
+- 选择变量表达式/星号表达式 *{……} Selection Variable Expressions: 
 
 ```HTML
 <div th:object="${session.user}">                                                                       
@@ -30,10 +26,34 @@ Thymeleaf与其他模板引擎的最大优势，其模板文件本身也是一�
 
 ​    选择表达式一般跟在th:object后，直接取object中的属性。
 
-- 文字国际化（消息）表达式  #{……}  Message Expressions: 
+上面这段模版等价于
+
+```html
+<div>
+    <p>Nationality: <span th:text="${session.user.nationality}">Saturn</span>.</p>    
+</div>
+```
+
+**if no object selection has been performed, dollar and asterisk syntaxes are exactly equivalent.**
+
+```html
+<div>
+  <p>Name: <span th:text="*{session.user.name}">Sebastian</span>.</p>
+  <p>Surname: <span th:text="*{session.user.surname}">Pepper</span>.</p>
+  <p>Nationality: <span th:text="*{session.user.nationality}">Saturn</span>.</p>
+</div>
+```
+
+
+- 消息表达式/支持国际化  #{……}  Message Expressions: 
 
 ```HTML
 <p th:utext="#{home.welcome}">Welcome to our grocery store!</p>
+<!-- 带参数的情况,实际上执行((User) ctx.getVariables().get("session").get("user")).getName();
+ -->
+<p th:utext="#{home.welcome(${session.user.name})}">
+  Welcome to our grocery store, Sebastian Pepper!
+</p>
 ```
 
  　　调用国际化的welcome语句,国际化资源文件如下
@@ -49,7 +69,15 @@ home.welcome=欢迎您的到来！
 - URL表达式  @{……}   Link URL Expressions:
 
 ```HTML
+<!-- Will produce 'http://localhost:8080/gtvg/order/details?orderId=3' (plus rewriting) -->
+<a href="details.html" 
+   th:href="@{http://localhost:8080/gtvg/order/details(orderId=${o.id})}">view</a>
+
+<!-- Will produce '/gtvg/order/details?orderId=3' (plus rewriting) -->
 <a href="details.html" th:href="@{/order/details(orderId=${o.id})}">view</a>
+
+<!-- Will produce '/gtvg/order/3/details' (plus rewriting) -->
+<a href="details.html" th:href="@{/order/{orderId}/details(orderId=${o.id})}">view</a>
 ```
 
           @{……}支持绝对路径和相对路径。其中相对路径又支持跨上下文调用url和协议的引用（//code.jquery.com/jquery-2.0.3.min.js）。
@@ -58,6 +86,13 @@ home.welcome=欢迎您的到来！
 
 ```HTML
 <img src="../../static/assets/images/qr-code.jpg" th:src="@{${path}}" alt="二维码" />
+```
+
+更复杂的情况
+
+```html
+<a th:href="@{${url}(orderId=${o.id})}">view</a>
+<a th:href="@{'/details/'+${user.login}(orderId=${o.id})}">view</a>
 ```
 
 #### 常用的th标签
@@ -178,7 +213,6 @@ home.welcome=欢迎您的到来！
 
 ##### Ref:
 
-- 官方文档 http://www.thymeleaf.org/doc/tutorials/2.1/usingthymeleaf.html
-- [thymeleaf 学习笔记-基础篇](http://www.cnblogs.com/vinphy/p/4674247.html)
-- http://yunlzheng.github.io/2015/03/17/template-engine-thymeleaf/
+- 最具体清晰的还是官方文档 http://www.thymeleaf.org/doc/tutorials/2.1/usingthymeleaf.html
+- [thymeleaf 学习笔记-基础篇
 - Thymeleaf 模板的使用 http://www.jianshu.com/p/ed9d47f92e37
