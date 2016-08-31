@@ -216,3 +216,4 @@ home.welcome=欢迎您的到来！
 - 最具体清晰的还是官方文档 http://www.thymeleaf.org/doc/tutorials/2.1/usingthymeleaf.html
 - [thymeleaf 学习笔记-基础篇
 - Thymeleaf 模板的使用 http://www.jianshu.com/p/ed9d47f92e37
+
