@@ -3,7 +3,6 @@
 2. 以下为长文
 
 #### Docker
-
 - [Docker Swarm](docker/Docker_Swarm.md)
 
 #### Java
@@ -46,16 +45,4 @@
 
 #### Misc
 - [Design RESTful interface](java/Design-RESTful-interface.md)
-
-#### 永不言败
- ![image](https://github.com/Terry-Shi/blog/raw/master/photo/makerumonnka_2.jpg)  
-
-努力了就会有回报。梦想久了就会实现。这只是幻想啊。  
-很多时候，努力了没有回报。很多时候，正义不能获胜。很多时候，梦想无法实现。  
-这样的事情，在现实世界里比比皆是。  
-但是，那又如何？ 那里就是起点啊。技术研发 99% 都会失败。  
-如果做新的事情，难免会搞砸，恼怒。所以，睡觉的时间，吃饭的时间都要珍惜。无论多少次都要坚持做。  
-来吧，超越今天的自己，超越今天的本田。  
-永不言败！  
-
-
+ 
