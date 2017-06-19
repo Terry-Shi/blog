@@ -71,3 +71,51 @@ Go 语言不支持面向对象编程语言中的构造方法，但是可以很�
 https://github.com/Unknwon/the-way-to-go_ZH_CN/blob/master/eBook/10.2.md
 
 #### 匿名字段和内嵌结构体
+结构体可以包含一个或多个 匿名（或内嵌）字段，即这些字段没有显式的名字，只有字段的类型是必须的，此时类型就是字段的名字。匿名字段本身可以是一个结构体类型，即 结构体可以包含内嵌结构体。在一个结构体中对于每一种数据类型只能有一个匿名字段。
+Go 语言中的继承是通过内嵌或组合来实现的.
+https://github.com/Unknwon/the-way-to-go_ZH_CN/blob/master/eBook/10.5.md
+
+#### 方法 method
+在方法名之前，func 关键字之后的括号中指定 receiver
+func (recv receiver_type) methodName(parameter_list) (return_value_list) { ... }
+
+类型和方法之间的关联由接收者来建立。
+
+如果方法不需要使用 recv 的值，可以用 _ 替换它，比如：
+func (_ receiver_type) methodName(parameter_list) (return_value_list) { ... }
+
+#### 指针or值作为接受者
+指针作为接受者，可以改变接受者的值
+```go
+type B struct {
+    thing int
+}
+
+func (b *B) change() { b.thing = 1 }
+
+func (b B) write() string { return fmt.Sprint(b) }
+
+func (b B) addOne() string {
+    b.thing = b.thing + 1
+    return fmt.Sprint(b)
+}
+
+func main() {
+    var b1 B // b1是值
+    fmt.Println(b1.write()) // default value = 0
+    b1.change()  // change to 1
+    fmt.Println(b1.write()) // print 1
+
+    b2 := new(B) // b2是指针
+    b2.change() // 1
+    fmt.Println(b2.write()) // 1
+    fmt.Println(b2.addOne()) // 2
+    fmt.Println(b2.write()) // 1
+}
+```
+
+
+#### 继承（内嵌struct interface）
+
+
+
