@@ -1,6 +1,6 @@
 # go 语言的 package 管理
 
-1. 目录结构／GOPATH
+## 1. 项目目录结构／GOPATH
 参考：
 官方说明 https://golang.org/doc/code.html#Workspaces
 https://openhome.cc/Gossip/Go/HelloWorld.html
@@ -8,9 +8,10 @@ https://openhome.cc/Gossip/Go/Package.html
 
 GO 语言的设计是所有工程共用一个workspace，workspace的具体位置由 $GOPATH 决定。
 $GOPATH 约定有三个子目录：
-src 存放源代码（比如：.go .c .h .s等）
+src 存放源代码
 pkg 编译后生成的文件（比如：.a）
 bin 编译后生成的可执行文件（为了方便，可以把此目录加入到 $PATH 变量中）
+下面是一个例子
 ```
 bin/
     hello                          # command executable
@@ -38,26 +39,36 @@ src/
     ... (many more repositories and packages omitted) ...
 ```
 
-* import {path of package；NOT package name} 注意import语句本质的含义是去后面的path搜寻源文件。
+* import "包的路径或 URL 地址"  注意import语句的含义是去后面的path搜寻源文件。所以import后面是path不是package name。
+  一般原则：源文件所处的目录名需要符合 package 的名字(尽管这不是强制的)。main package可以除外。
 * go 文件第一行 package {packge name}
 * 本地目录与远程目录对应关系：以 github.com/golang/example/ 为例
    远程含义：golang 是 github 用户名； example 是 repo 名
-   本地含义：example 是 package name
-* 一般原则：源文件所处的目录名需要符合 package 的名字。main package可以除外。
-假设
-export GOPATH=~\workspace\go
-~go
- |~src/
- | |~hello/
- | | `-hello.go <- hello.go 的第一行是 package hello
- `-main.go
-go run main.go - 产生名字为 main 的可执行文件。
-也可以建立一個 bin 目錄，然後執行 go build -o bin/main main.go，這樣產生出來的可執行檔，就會被放在 bin 底下。
-如果想將原始碼全部放在 src 底下管理，那麼就將 main.go 放到 src/main 底下，然後執行 go build -o bin/main src/main/main.go。
+   本地含义：example 是 package name；目录结构是 {PROJECT_DIR}/example/
+
+例如：
+1.用IntelliJ IDEA建立了一个工程在~/IdeaProjects/dns-controller 目录。
+2.$GOPATH=$HOME/go
+3.自己的代码希望可以被
+	"github.com/username/dns-controller/cmd/dns-controller/app/options"
+	"github.com/username/dns-controller/pkg/utils"
+  引用到
+4.工程内目录结构
+dns-controller
+  cmd/ 自己写的源代码 main package
+  pkg/ 自己写的源代码 其他package
+  vendor/ 第三方依赖
+
+如何安排目录？
+$ mkdir -p $GOPATH/src/github.com/username/
+$ ln -s  ~/IdeaProjects/dns-controller $GOPATH/src/github.com/username/dns-controller
+$ cd /Users/xzy/go/src/github.com/username/dns-controller # 必须进入link的目录
+$ CGO_ENABLED=0 GOOS=linux go build -a -installsuffix cgo -ldflags   -o dns-controller   ./cmd/dns-controller/dns-controller.go
+
 
 * 一个 package 的目录下可以包含多个go文件，例如 go install goexample 会在 pkg 目錄的 $GOOS_$GOARCH 目錄中產生 goexample.a 檔案
 * 也可以在 package 目录前增加父目录，可以建立一個 src/cc/openhome 目錄，然後將方才的 hello.go 與 hi.go 移至該目錄之中，接著執行 go install cc/openhome/goexample，那麼，在 pkg 目錄的 $GOOS_$GOARCH 目錄中，會產生對應的 cc/openhome 目錄，其中放置著 goexample.a 檔案
-远程 package ：例如，你可以建立 src/github.com/JustinSDK 目錄，然後將方才的 goexample 目錄移到 src/github.com/JustinSDK 當中
+* 远程 package ：例如，你可以建立 src/github.com/JustinSDK 目錄，然後將方才的 goexample 目錄移到 src/github.com/JustinSDK 當中
 ```go
 ackage main
 
@@ -88,22 +99,22 @@ go get github.com/JustinSDK/goexample
   `~main/
     `-main.go
 ```
+参考：https://stackoverflow.com/questions/10130341/go-go-get-go-install-local-packages-and-version-control?rq=1
 
 
-
-2. go 1.6 开始内置了vendoring功能。
+## 2. go 1.6 开始内置了vendoring功能。
 参考 https://stackoverflow.com/questions/37237036/how-should-i-use-vendor-in-go-1-6
-
-假设 import github.com/zenazn/goji
 go build or go run的搜寻顺序：1. 工程目录下的vendor子目录  2. $GOPATH 3. $GOROOT
-./vendor/github.com/zenazn/goji
+假设 import github.com/zenazn/goji
+./vendor/github.com/zenazn/goji  注意vendor目录必须under GOPATH目录
 $GOPATH/src/github.com/zenazn/goji
 $GOROOT/src/github.com/zenazn/goji
 
-`go get` will continue to install into you $GOPATH/src; and, go install will install into $GOPATH/bin for binaries or $GOPATH/pkg for package caching.
+## * 自定义的 package 怎么引用
+import "./util" 会在相对目录下搜寻 package 源文件
 
 
-3. dependency management tool
+## 3. dependency management tool
 godep 参考 http://www.cnblogs.com/me115/p/5528463.html
 编译／运行
 项目用godep管理后，要编译和运行项目的时候再用go run和go build显然就不行了，因为go命令是直接到GOPATH目录下去找第三方库。
@@ -114,7 +125,7 @@ godep中的go命令，就是将原先的go命令加了一层壳，执行godep go
 
 
 
-4. 自定义包的可见性／可访问性
+## 4. 自定义包的可见性／可访问性
 https://github.com/Unknwon/the-way-to-go_ZH_CN/blob/master/eBook/09.5.md
 ```go
 //　工程目录根目录下有 main.go
