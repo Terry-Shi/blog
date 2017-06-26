@@ -10,29 +10,31 @@ type Person struct {
 }
 
 func main() {
-    //初始化
+    //初始化 person是对象的引用
     person := Person{"Tom", 30, "tom@gmail.com"}
     person = Person{name:"Tom", age: 30, email:"tom@gmail.com"}
 
     fmt.Println(person) //输出 {Tom 30 tom@gmail.com}
-
+    // pPersion是指针
     pPerson := &person
-
     fmt.Println(pPerson) //输出 &{Tom 30 tom@gmail.com}
-
     pPerson.age = 40  // 指针可以直接用"."来取数据和调用方法
     person.name = "Jerry"
     fmt.Println(person) //输出 {Jerry 40 tom@gmail.com}
+
+    // p是指针
+    p := new(Person)
+    p.name = "Kate"
+    p.age = 33
 }
 ```
-
 
 ```go
 type rect struct {
     width, height int
 }
 
-// (r *rect) 表示这个函数是属于结构体rect的
+// (r *rect) 表示这个函数是属于结构体rect的，小括号中的rect表示接受者。
 func (r *rect) area() int { //求面积
     return r.width * r.height
 }
@@ -54,22 +56,32 @@ func main() {
 ```
 
 #### 2 初始化
-初始化一个结构体实例（一个结构体字面量：struct-literal）的更简短和惯用的方式如下：
-&struct1{a, b, c} 是一种简写，底层仍然会调用 new ()，这里值的顺序必须按照字段顺序来写。在下面的例子中能看到可以通过在值的前面放上字段名来初始化字段的方式。表达式 new(Type) 和 &Type{} 是等价的。
-    ms := &struct1{10, 15.5, "Chris"}
+初始化一个结构体实例的方式如下：
+表达式 new(Type) 和 &Type{} 是等价的。
+    ms := new (struct)
+    ms := &struct1{10, 15.5, "Chris"} // 底层仍然会调用 new ()，这里值的顺序必须按照字段顺序来写
     // 此时ms的类型是 *struct1
-或者：
+或者：// 此时ms的类型是 struct1 对象的引用
     var ms struct1
     ms = struct1{10, 15.5, "Chris"}
-
+    
 #### 3 函数首字母大写 表示可以被其他pkg调用
 Go语言中没有public, protected, private的关键字，所以，如果你想让一个方法可以被别的包访问的话，你需要把这个方法的第一个字母大写。这是一种约定。
 
-#### 4 结构体工厂
+#### 10.2结构体工厂 
 Go 语言不支持面向对象编程语言中的构造方法，但是可以很容易的在 Go 中实现 “构造子工厂”方法。为了方便通常会为类型定义一个工厂，按惯例，工厂的名字以 new 或 New 开头。假设定义了如下的 File 结构体类型：
 https://github.com/Unknwon/the-way-to-go_ZH_CN/blob/master/eBook/10.2.md
 
-#### 匿名字段和内嵌结构体
+#### 10.4 带标签的结构体
+```go
+type TagType struct { // tags
+	field1 bool   "An important answer"
+	field2 string "The name of the thing"
+	field3 int    "How much there are"
+}
+```
+
+#### 10.5 匿名字段和内嵌结构体
 结构体可以包含一个或多个 匿名（或内嵌）字段，即这些字段没有显式的名字，只有字段的类型是必须的，此时类型就是字段的名字。匿名字段本身可以是一个结构体类型，即 结构体可以包含内嵌结构体。在一个结构体中对于每一种数据类型只能有一个匿名字段。
 Go 语言中的继承是通过内嵌或组合来实现的.
 https://github.com/Unknwon/the-way-to-go_ZH_CN/blob/master/eBook/10.5.md
@@ -128,6 +140,7 @@ func main() {
 A：聚合（或组合）：包含一个所需功能类型的具名字段。
 B：内嵌：匿名地包含所需功能类型。 调用时和直接具备这些方法一样。
 
+* 没有重载／有覆写
 
 
 
