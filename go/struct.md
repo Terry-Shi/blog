@@ -89,7 +89,7 @@ https://github.com/Unknwon/the-way-to-go_ZH_CN/blob/master/eBook/10.5.md
 #### 10.6 方法 method
 https://github.com/Unknwon/the-way-to-go_ZH_CN/blob/master/eBook/10.6.md
 10.6.1 方法是什么
-在 Go 语言中，结构体就像是类的一种简化形式在方法名之前，func 关键字之后的括号中指定 receiver。
+在 Go 语言中，结构体就像是类的一种简化形式.在方法名之前，func 关键字之后的括号中指定 receiver。
 接收者类型可以是（几乎）任何类型，不仅仅是结构体类型：任何类型都可以有方法，甚至可以是函数类型，可以是 int、bool、string 或数组的别名类型。 但是接收者不能是一个接口类型，不能是一个指针类型，但是它可以是任何其他允许类型的指针。
 
 定义方法的一般格式如下：
@@ -142,6 +142,7 @@ B：内嵌：匿名地包含所需功能类型。 调用时和直接具备这些
 
 * 没有重载／有覆写
 
+10.7 类型的 String() 方法和格式化描述符
 
 
 
