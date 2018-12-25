@@ -13,7 +13,8 @@
 - [Java 序列化](java/serialization.md)
 - [Java GC](java/JavaGC.md)
 - [Java NIO2](java/JavaNIO2.md)
-
+- [Maven 引用本地lib](java/maven-local-repo.md)
+- 
 #### Go
 - 个人感觉 go语言
     - 优点有: 函数可以有多个返回值，并发编程的直接支持，编译成目标平台的可执行文件（依赖极少），同样的功能代码量比Java精简
