@@ -5,6 +5,7 @@
 
 ## Java
 
+- [HashMap](java/HashMap.md)
 - [Java 8 ParallelStream](java/Java8-ParallelStream.md)
 - [Classloader](java/classloader.md)
 - [Tomcat classloader](java/tomcat-classloader.md)
